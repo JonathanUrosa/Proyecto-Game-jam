@@ -11,15 +11,26 @@ public class SystemCombat : MonoBehaviour
     Interactable curretInteractable;
 
     readonly int IdAttack = Animator.StringToHash("Attack");
+    readonly string AttackString = "Attack";
 
     private void Awake()
     {
         interactablesManager = FindObjectOfType<InteractablesManager>();
     }
+
     public void InvokeAttack(Interactable interactable)
     {
         curretInteractable = interactable;
-        animator.SetBool(IdAttack, true);   
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName(AttackString))
+        {
+            if (curretInteractable.TryGetComponent(out Damageable damageable))
+            {
+                if(damageable.endurance > 0)
+                {
+                    animator.SetBool(IdAttack, true);
+                }
+            }
+        }
     }
     public void CancelAttack()
     {
@@ -41,6 +52,7 @@ public class SystemCombat : MonoBehaviour
     [PunRPC]
     public void RPCAttackComplete(int id)
     {
+
         interactablesManager.GetInteractable(id).InvokeInteractable();
         //curretInteractable.InvokeInteractable();        // causar dano al interactuable
     }

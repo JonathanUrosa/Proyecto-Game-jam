@@ -43,16 +43,15 @@ public class NavMeshController : MonoBehaviour
             {
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    DeselectLastInteractable();
                     if (colliders[i].TryGetComponent(out Interactable interactable))// confirma que esos objetos tenga el interactable
                     {
                         cacheInteractable = interactable; // guardo una referencia para luego ser usada para deseleccionarla
                         channelNavmesh.InvokeInteracble(cacheInteractable);// invoka el interactuable seleccionado para que el character y el objeto sepan
                         return;
                     }
-                    channelNavmesh.InvokePoint(destine); // si no encontro a un objeto interactuable pues envia el punto mas cercano
                 }
-
+                DeselectLastInteractable();
+                channelNavmesh.InvokePoint(destine); // si no encontro a un objeto interactuable pues envia el punto mas cercano
             }
             else
             {

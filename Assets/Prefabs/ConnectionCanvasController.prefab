@@ -428,6 +428,7 @@ MonoBehaviour:
   nicknameField: {fileID: 6864545690654565210}
   ButtonText: {fileID: 178285349047295343}
   loginButton: {fileID: 4673449252045548551}
+  characterPrefab: {fileID: 0}
 --- !u!1 &3954610054698609101
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Play
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

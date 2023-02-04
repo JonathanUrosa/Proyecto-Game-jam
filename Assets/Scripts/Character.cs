@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon;
 using Photon.Pun;
+using UnityEngine.SocialPlatforms;
+using System;
 
 public class Character : MonoBehaviour
 {
 
     #region Field
 
+    [SerializeField] FollowCharacter prefabName;
     [SerializeField] PhotonView photonView;
     [SerializeField] ChannelCameraSO channelCameraSO;
     [SerializeField] ChannelNavmeshSO ChannelNavmeshSO; /// canal donde se obtiene la posicion y objetivo que debe seguir
@@ -31,11 +34,16 @@ public class Character : MonoBehaviour
     /// </summary>
     public bool IsMove { get { return stateCharacter == StateCharacter.Move;  } }
 
+    public bool IsAttacking { get { return stateCharacter == StateCharacter.Attack; } }
+
     /// <summary>
     ///  obtiene la distancia actual del objetivo del player y el player
     /// </summary>
     public float DistanceDestine { get { return Vector3.Distance(transform.position, destine) - 0.5f; } }
     #endregion
+
+
+    FollowCharacter followCharacter;
 
 
     #region Methods
@@ -48,6 +56,8 @@ public class Character : MonoBehaviour
             ChannelNavmeshSO.OnEventPoint += MoveListener; // suscripcion
             ChannelNavmeshSO.OnEventInteractable += MovementInteractableListener;// suscripcion
         }
+        followCharacter = Instantiate(prefabName);
+        followCharacter.SetTarget(this.transform,photonView.Owner.NickName);
     }
     private void OnDisable()
     {
@@ -55,6 +65,10 @@ public class Character : MonoBehaviour
         {
             ChannelNavmeshSO.OnEventPoint -= MoveListener;
             ChannelNavmeshSO.OnEventInteractable -= MovementInteractableListener;
+            if(followCharacter != null)
+            {
+                Destroy(followCharacter);
+            } 
         }
     }
     /// <summary>
@@ -84,19 +98,18 @@ public class Character : MonoBehaviour
     {
         destine = position;
         agent.SetDestination(destine);
-        InvokeMove();
+        SetState(StateCharacter.Move);
     }
     private void Update()
     {
         if (!photonView.IsMine) return;
-        if (IsMove) // si se esta moviento
+        if (IsMove || IsAttacking) // si se esta moviento
         {
             if (DistanceDestine <= DistanceMin) // evalue si la distancia con el destino ya es la necesaria
             {
                 if(CurrentInteractable != null) // evalue si su objetivo era un interactuable
                 {
-                    LookTarget();
-                    InvokeIdle();
+                    SetState(StateCharacter.Attack);
                     systemCombat.InvokeAttack(CurrentInteractable);
                     // Mirar hacia el interactuable
                     // Evaluar el tipo de interactuable. 
@@ -107,25 +120,46 @@ public class Character : MonoBehaviour
                 }
                 else
                 {
-                    InvokeIdle(); // detengase
+                    SetState(StateCharacter.Idle); // detengase
                 }
             }
         }
     }
     private void InvokeIdle()
     {
-        SetState(StateCharacter.Idle);
         particleMove.Stop();
     }
     private void InvokeMove()
     {
-        SetState(StateCharacter.Move);
         particleMove.Play();
     }
+    private void InvokeAttack()
+    {
+        particleMove.Stop();
+        LookTarget();
+    }
+
     private void SetState(StateCharacter state)
     {
+        if (state != stateCharacter)
+        {
+            switch (state)
+            {
+                case StateCharacter.Idle:
+                    InvokeIdle();
+                    break;
+                case StateCharacter.Move:
+                    InvokeMove();
+                    break;
+                case StateCharacter.Attack:
+                    InvokeAttack();
+                    break;
+            }
+            photonView.RPC(nameof(RPCState), RpcTarget.Others, (int)state);
+        }
         stateCharacter = state;
     }
+
 
     private void LookTarget()
     {
@@ -137,6 +171,18 @@ public class Character : MonoBehaviour
         var dir = destine - transform.position;
         dir.y = transform.position.y;
         return dir.normalized;
+    }
+    [PunRPC]
+    private void RPCState(int state)
+    {
+        if (state == 1)
+        {
+            particleMove.Play();
+        }
+        else
+        {
+            particleMove.Stop();
+        }
     }
     #endregion
 }

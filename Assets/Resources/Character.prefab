@@ -409,6 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa9e7861811ed648b41ad9f06ba727b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefabName: {fileID: 1035218022098758314, guid: 8a2a5f1982391ee44a0cd1a9d4faf2be, type: 3}
   photonView: {fileID: 4011780833399902107}
   channelCameraSO: {fileID: 11400000, guid: 790863342756b3a4ab757eafdc0ef262, type: 2}
   ChannelNavmeshSO: {fileID: 11400000, guid: 06ff62e19b561a5489cb499cea2b3af2, type: 2}

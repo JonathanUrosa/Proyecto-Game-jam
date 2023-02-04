@@ -63,11 +63,11 @@ public class ConnectionScript : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         StartCoroutine("EnteringEvents");
     }
-    public IEnumerator EnteringEvents() {
-        var randomPos = spawners[Random.Range(0,spawners.Length)];
-        PhotonNetwork.Instantiate(characterPrefab.name, randomPos.transform.position,Quaternion.identity);
-
-        yield return new WaitForSeconds(3);
+    public IEnumerator EnteringEvents()
+    {
+        var randomPos = spawners[Random.Range(0, spawners.Length)];
+        PhotonNetwork.Instantiate(characterPrefab.name, randomPos.transform.position, Quaternion.identity);
         canvas.enabled = false;
+        yield return null;
     }
 }
