@@ -13,6 +13,9 @@ public class InputController : MonoBehaviour
 
     [SerializeField] float distanceRaycast = 1f;
 
+    Vector3 PosCamera = Vector3.zero;
+    [SerializeField] LayerMask layerMask;
+
     private void Start()
     {
         _camera = Camera.main;
@@ -21,8 +24,14 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            var pos3D = _camera.ScreenPointToRay(Input.mousePosition).GetPoint(distanceRaycast);  
-            channelInputSO.InvokeMouseDown(pos3D);
+            var ray = _camera.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out RaycastHit hit);
+            PosCamera = hit.point;
+            channelInputSO.InvokeMouseDown(PosCamera);
         }    
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(PosCamera, 1);
     }
 }
