@@ -410,7 +410,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 1
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &8942088387498680373
@@ -425,6 +425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f087833744d0a24885beb15f16db3db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 0}
 --- !u!1 &789904702660010247
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon;
+using Photon.Pun;
 
 public class Character : MonoBehaviour
 {
 
     #region Field
+
+    [SerializeField] PhotonView photonView;
+    [SerializeField] ChannelCameraSO channelCameraSO;
     [SerializeField] ChannelNavmeshSO ChannelNavmeshSO; /// canal donde se obtiene la posicion y objetivo que debe seguir
     [SerializeField] SystemCombat systemCombat;
     [SerializeField] NavMeshAgent agent; // cache del agente
@@ -17,7 +22,7 @@ public class Character : MonoBehaviour
     #endregion
 
     private Vector3 destine;// cache del destino hacia donde se dirige el character
-    [SerializeField] private Interactable CurrentInteractable;// el interactuable actual hacia donde se dirige el player
+    private Interactable CurrentInteractable;// el interactuable actual hacia donde se dirige el player
 
     #region Property
 
@@ -37,13 +42,20 @@ public class Character : MonoBehaviour
 
     private void OnEnable()
     {
-        ChannelNavmeshSO.OnEventPoint += MoveListener; // suscripcion
-        ChannelNavmeshSO.OnEventInteractable += MovementInteractableListener;// suscripcion
+        if (photonView.IsMine)
+        {
+            channelCameraSO.InvokeChangeTarget(this.transform);
+            ChannelNavmeshSO.OnEventPoint += MoveListener; // suscripcion
+            ChannelNavmeshSO.OnEventInteractable += MovementInteractableListener;// suscripcion
+        }
     }
     private void OnDisable()
     {
-        ChannelNavmeshSO.OnEventPoint -= MoveListener; 
-        ChannelNavmeshSO.OnEventInteractable -= MovementInteractableListener;
+        if (photonView.IsMine)
+        {
+            ChannelNavmeshSO.OnEventPoint -= MoveListener;
+            ChannelNavmeshSO.OnEventInteractable -= MovementInteractableListener;
+        }
     }
     /// <summary>
     ///  es metodo es un oyente de cuando se hace click en el mundo, mayormente en el suelo
@@ -76,6 +88,7 @@ public class Character : MonoBehaviour
     }
     private void Update()
     {
+        if (!photonView.IsMine) return;
         if (IsMove) // si se esta moviento
         {
             if (DistanceDestine <= DistanceMin) // evalue si la distancia con el destino ya es la necesaria

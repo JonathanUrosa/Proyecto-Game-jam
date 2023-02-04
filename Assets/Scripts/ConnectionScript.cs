@@ -65,7 +65,8 @@ public class ConnectionScript : MonoBehaviourPunCallbacks
     }
     public IEnumerator EnteringEvents() {
         var randomPos = spawners[Random.Range(0,spawners.Length)];
-        Instantiate(characterPrefab,)
+        PhotonNetwork.Instantiate(characterPrefab.name, randomPos.transform.position,Quaternion.identity);
+
         yield return new WaitForSeconds(3);
         canvas.enabled = false;
     }
