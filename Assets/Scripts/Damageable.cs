@@ -5,9 +5,12 @@ using UnityEngine.Events;
 
 public class Damageable : MonoBehaviour
 {
-    public int endurance = 3;
-    [SerializeField] UnityEvent OnEventHit;
-    [SerializeField] UnityEvent OnEventDestroy;
+    public int totalEndurance=3,endurance = 3;
+    [SerializeField] UnityEvent onEventHit;
+    [SerializeField] UnityEvent onEventDestroy;
+
+    public UnityEvent OnEventHit { get => onEventHit; set => onEventHit = value; }
+    public UnityEvent OnEventDestroy { get => onEventDestroy; set => onEventDestroy = value; }
 
     public void InvokeHit()
     {
