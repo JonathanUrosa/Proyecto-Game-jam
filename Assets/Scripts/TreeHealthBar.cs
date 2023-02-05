@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class TreeHealthBar : MonoBehaviour
 {
-
+    public static TreeHealthBar instance;
     [SerializeField]
     private Gradient ColorGradient;
     [SerializeField]
@@ -18,19 +18,26 @@ public class TreeHealthBar : MonoBehaviour
     int totalTreeHealth=0,actualTreeHealth=0;
 
     [SerializeField] UnityEvent OnEventComplete;
+  
     private void OnEnable()
     {
+        instance = this;
         damageables = new List<Damageable>();
         var roots = GameObject.FindGameObjectsWithTag("Root");
         foreach (GameObject item in roots)
         {
             damageables.Add(item.GetComponent<Damageable>());
+            item.GetComponent<Damageable>().OnEventHit.AddListener(Hit);
         }
+        UpdateLifeBar();
+    }
+
+    public void UpdateLifeBar()
+    {
         foreach (Damageable item in damageables)
         {
             totalTreeHealth += item.totalEndurance;
             actualTreeHealth += item.endurance;
-            item.OnEventHit.AddListener(Hit);
         }
         lifeSlider.minValue = 0;
         lifeSlider.maxValue = totalTreeHealth;
@@ -45,5 +52,10 @@ public class TreeHealthBar : MonoBehaviour
         {
             OnEventComplete?.Invoke();
         }
+    }
+    public static void UpdateSlider()
+    {
+        instance.totalTreeHealth = instance.actualTreeHealth = 0;
+        instance.UpdateLifeBar();
     }
 }
