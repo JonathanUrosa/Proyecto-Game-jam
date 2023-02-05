@@ -16,7 +16,7 @@ public class TreeSystem : MonoBehaviour
             var dmgs = transform.GetComponentsInChildren<Damageable>(true);
             foreach (Damageable item in dmgs)
             {
-                Debug.Log(item.name);
+               // Debug.Log(item.name);
                 if (item.gameObject.CompareTag("Tree"))
                     trees.Add(item);
                 if (item.gameObject.CompareTag("Root"))
@@ -44,8 +44,8 @@ public class TreeSystem : MonoBehaviour
         {
             if((root.endurance<root.totalEndurance)&&remainingTrees>0)
             {
-                yield return new WaitForSeconds(regenerationRate / 60);
-                root.endurance+=remainingTrees;
+                yield return new WaitForSeconds(60/regenerationRate );
+                root.endurance = Math.Clamp(root.endurance+ remainingTrees, 0,root.totalEndurance);
                 TreeHealthBar.UpdateSlider();
             }
             yield return new WaitForEndOfFrame();
