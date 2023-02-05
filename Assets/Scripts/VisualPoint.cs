@@ -2,11 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class VisualPoint : MonoBehaviour
 {
     [SerializeField] ChannelNavmeshSO channelNavMeshSO;
     [SerializeField] ParticleSystem _particleSystem;
+    [SerializeField] UnityEvent EventSound;
 
     private void OnEnable()
     {
@@ -29,5 +31,6 @@ public class VisualPoint : MonoBehaviour
         _particleSystem.transform.position = new Vector3(arg0.x, -0.25f,arg0.z);
         _particleSystem.transform.gameObject.SetActive(true);
         _particleSystem.Play();
+        EventSound?.Invoke();
     }
 }
