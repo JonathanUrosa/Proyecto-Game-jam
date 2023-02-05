@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class RootListener : MonoBehaviour
 {
     [SerializeField]
@@ -29,6 +28,9 @@ public class RootListener : MonoBehaviour
         var roots = GameObject.FindGameObjectsWithTag("Root");
         foreach (GameObject item in roots)
             item.GetComponent<Interactable>().OnEventSelect.AddListener(OpenBar);
+        roots = GameObject.FindGameObjectsWithTag("Tree");
+        foreach (GameObject item in roots)
+            item.GetComponent<Interactable>().OnEventSelect.AddListener(OpenBar);
     }
 
 
@@ -38,7 +40,9 @@ public class RootListener : MonoBehaviour
         var roots = GameObject.FindGameObjectsWithTag("Root");
         foreach (GameObject item in roots)
             item.GetComponent<Interactable>().OnEventSelect.RemoveListener(OpenBar);
-
+        roots = GameObject.FindGameObjectsWithTag("Tree");
+        foreach (GameObject item in roots)
+            item.GetComponent<Interactable>().OnEventSelect.RemoveListener(OpenBar);
     }
     private void CloseBar(Vector3 v3)
     {
@@ -62,13 +66,13 @@ public class RootListener : MonoBehaviour
         mySlider.minValue = 0;
         mySlider.maxValue = dmg.totalEndurance;
         mySlider.value = dmg.endurance;
-        if (dmg.endurance == 0)
-            rootSlider.SetActive(false);
         dmg.OnEventHit.AddListener(UpdateBar);
     }
 
     private void UpdateBar()
     {
         mySlider.value = dmg.endurance;
+        if (dmg.endurance == 0)
+            rootSlider.SetActive(false);
     }
 }
