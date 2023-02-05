@@ -26,7 +26,7 @@ public class VisualPoint : MonoBehaviour
     }
     private void DrawPoint(Vector3 arg0)
     {
-        _particleSystem.transform.position = arg0;
+        _particleSystem.transform.position = new Vector3(arg0.x, -0.5f,arg0.z);
         _particleSystem.transform.gameObject.SetActive(true);
         _particleSystem.Play();
     }
