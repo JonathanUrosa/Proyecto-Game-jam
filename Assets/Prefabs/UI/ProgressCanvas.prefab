@@ -216,7 +216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300026, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -306,6 +306,9 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   lifeBar: {fileID: 3366461480052553945}
   lifeSlider: {fileID: 9016496218944241226}
+  updateTreeHealth:
+    m_PersistentCalls:
+      m_Calls: []
   OnEventComplete:
     m_PersistentCalls:
       m_Calls:
@@ -581,7 +584,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300038, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -730,6 +733,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2828552306573012544, guid: b5c129a18beb55442a8ed5647d555841, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300024, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
     - target: {fileID: 3502696281466494719, guid: b5c129a18beb55442a8ed5647d555841, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -754,6 +761,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8283027902676990387, guid: b5c129a18beb55442a8ed5647d555841, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300046, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5c129a18beb55442a8ed5647d555841, type: 3}
 --- !u!224 &4125058134386913214 stripped

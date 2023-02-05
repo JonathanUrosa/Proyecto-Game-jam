@@ -16,7 +16,7 @@ public class TreeHealthBar : MonoBehaviour
     Slider lifeSlider;
     List<Damageable> damageables;
     int totalTreeHealth=0,actualTreeHealth=0;
-
+    public UnityEvent<int> updateTreeHealth;
     [SerializeField] UnityEvent OnEventComplete;
   
     private void OnEnable()
