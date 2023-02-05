@@ -97,7 +97,7 @@ Material:
     - __dirty: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColor: {r: 0.6415094, g: 0.3783928, b: 0.16037735, a: 1}
+    - _DiffuseColor: {r: 0.4811321, g: 0.23145115, b: 0.029503396, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 1, b: 0.8758622, a: 0}
   m_BuildTextureStacks: []

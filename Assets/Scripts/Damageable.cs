@@ -15,11 +15,8 @@ public class Damageable : MonoBehaviour
     public void InvokeHit()
     {
         endurance--;
-        if(endurance > 0)
-        {
-            Hit();
-        }
-        else
+        Hit();
+        if (endurance == 0)
         {
             Destroy();
         }
