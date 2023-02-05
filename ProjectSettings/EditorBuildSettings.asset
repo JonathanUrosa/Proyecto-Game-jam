@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game Respaldo.unity
+    path: Assets/Scenes/Game.unity
     guid: 49ec25cf735428b42a7a7db5e68c6c75
   m_configObjects: {}
