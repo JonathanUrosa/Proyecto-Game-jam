@@ -59,7 +59,6 @@ public class RootListener : MonoBehaviour
 
     private void AddDamageEvent(Interactable root)
     {
-        Debug.Log(root.name + " recibio impacto");
         dmg = root.GetComponent<Damageable>();
         mySlider.minValue = 0;
         mySlider.maxValue = dmg.totalEndurance;

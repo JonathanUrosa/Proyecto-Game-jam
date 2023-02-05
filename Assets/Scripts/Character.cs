@@ -6,12 +6,13 @@ using Photon;
 using Photon.Pun;
 using UnityEngine.SocialPlatforms;
 using System;
+using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
 
     #region Field
-
+    [SerializeField] UnityEvent EventIsMine;
     [SerializeField] FollowCharacter prefabName;
     [SerializeField] PhotonView photonView;
     [SerializeField] ChannelCameraSO channelCameraSO;
@@ -57,6 +58,7 @@ public class Character : MonoBehaviour
             channelCameraSO.InvokeChangeTarget(this.transform);
             ChannelNavmeshSO.OnEventPoint += MoveListener; // suscripcion
             ChannelNavmeshSO.OnEventInteractable += MovementInteractableListener;// suscripcion
+            EventIsMine?.Invoke();
         }
         followCharacter = Instantiate(prefabName);
         followCharacter.SetTarget(this.transform,photonView.Owner.NickName);
@@ -81,6 +83,7 @@ public class Character : MonoBehaviour
     {
         CurrentInteractable = null;
         InvokeMovement(position);
+        systemCombat.CancelAttackForce();
     }
 
     /// <summary>

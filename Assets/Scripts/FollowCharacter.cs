@@ -9,15 +9,28 @@ public class FollowCharacter : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] Vector3 offset;
     [SerializeField] TextMeshPro textMeshPro;
+    [SerializeField] bool followTarget;
 
     public void SetTarget(Transform transform, string nickName)
     {
         target = transform;
         textMeshPro.text = nickName;
+        followTarget = true;    
     }
 
     private void Update()
     {
-        transform.position = target.position + offset;
+        if (followTarget)
+        {
+            if(transform != null)
+            {
+
+                transform.position = target.position + offset;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 }

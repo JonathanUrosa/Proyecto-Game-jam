@@ -26,6 +26,15 @@ public class SystemCombat : MonoBehaviour
             animator.SetBool(IdAttack, true);
         }
     }
+    public void CancelAttackForce()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName(AttackString))
+        {
+            curretInteractable = null;
+            animator.SetBool(IdAttack, false);
+            animator.Play("Run");
+        }
+    }
     public void CancelAttack()
     {
         curretInteractable = null;
