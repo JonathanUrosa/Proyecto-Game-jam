@@ -39,6 +39,7 @@ public class SystemCombat : MonoBehaviour
     }
     public void AttackComplete()
     {
+        Debug.Log("ataque completo");
         if (photonView.IsMine)
         {
             if (curretInteractable != null)
@@ -52,7 +53,7 @@ public class SystemCombat : MonoBehaviour
     [PunRPC]
     public void RPCAttackComplete(int id)
     {
-
+        Debug.Log("RPC ataque completo");
         interactablesManager.GetInteractable(id).InvokeInteractable();
         //curretInteractable.InvokeInteractable();        // causar dano al interactuable
     }

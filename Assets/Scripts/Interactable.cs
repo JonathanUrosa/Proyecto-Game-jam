@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
@@ -7,12 +8,15 @@ public class Interactable : MonoBehaviour
     [SerializeField] Transform pointTarget;// punto de referencia que tendra los character para poder interactuar con este objeto
 
     [SerializeField] UnityEvent OnEventInit = new UnityEvent(); // este evento va a contener el conjunto de acciones que deberan suceder inicio
-    [SerializeField] UnityEvent OnEventSelect = new UnityEvent(); // este evento va a contener el conjunto de acciones que deberan suceder al ser seleccionado
-    [SerializeField] UnityEvent OnEventDeselect = new UnityEvent();// este evento va a contener el conjunto de acciones que deberan suceder al ser deseleccionado
-    [SerializeField] UnityEvent OnEventInteractable = new UnityEvent();// este evento va a contener el conjunto de acciones que deberan suceder al character interactual con el
+    [SerializeField] UnityEvent onEventSelect = new UnityEvent(); // este evento va a contener el conjunto de acciones que deberan suceder al ser seleccionado
+    [SerializeField] UnityEvent onEventDeselect = new UnityEvent();// este evento va a contener el conjunto de acciones que deberan suceder al ser deseleccionado
+    [SerializeField] UnityEvent onEventInteractable = new UnityEvent();// este evento va a contener el conjunto de acciones que deberan suceder al character interactual con el
 
 
-    bool IsSelect = false;
+    public UnityEvent OnEventDeselect { get => onEventDeselect; set => onEventDeselect = value; }
+    public UnityEvent OnEventSelect { get => onEventSelect; set => onEventSelect = value; }
+    public UnityEvent OnEventInteractable { get => onEventInteractable; set => onEventInteractable = value; }
+
     private void OnEnable()
     {
         OnEventInit?.Invoke();
@@ -39,18 +43,14 @@ public class Interactable : MonoBehaviour
     /// </summary>
     public virtual void Select()
     {
-        if (IsSelect) return;
         OnEventSelect?.Invoke();
-        IsSelect = true;
     }
     /// <summary>
     ///  este metodo sera llamado al apretar cualquier otro punto que no sea este objeto interactuable
     /// </summary>
     public virtual void Deselect()
     {
-        if (!IsSelect) return;
         OnEventDeselect?.Invoke();
-        IsSelect = false;
     }
     /// <summary>
     ///  este metodo retornara la posiciion que debe tener el player para poder interactuar con este objeto
@@ -62,7 +62,7 @@ public class Interactable : MonoBehaviour
     }
     public virtual void InvokeInteractable()
     {
-        OnEventInteractable?.Invoke();
+        onEventInteractable?.Invoke();
     }
 }
 
