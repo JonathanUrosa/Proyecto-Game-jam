@@ -14,7 +14,6 @@ public class Damageable : MonoBehaviour
 
     public void InvokeHit()
     {
-        Debug.Log("pegado");
         endurance--;
         Hit();
         if (endurance == 0)

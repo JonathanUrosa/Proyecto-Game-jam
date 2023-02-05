@@ -22,6 +22,7 @@ public class Character : MonoBehaviour
     [SerializeField] StateCharacter stateCharacter; // visualizacion de estado
     [SerializeField] float DistanceLimitTarget; // distancia maxima que puede tener de cercania con el objetivo
     [SerializeField] float DistanceMin; // distancia minima para entender que ya llego a su punto solicitado
+    [SerializeField] Animator animator;
     #endregion
 
     private Vector3 destine;// cache del destino hacia donde se dirige el character
@@ -45,6 +46,7 @@ public class Character : MonoBehaviour
 
     FollowCharacter followCharacter;
 
+    readonly int HashRun = Animator.StringToHash("Run");
 
     #region Methods
 
@@ -109,8 +111,16 @@ public class Character : MonoBehaviour
             {
                 if(CurrentInteractable != null) // evalue si su objetivo era un interactuable
                 {
-                    SetState(StateCharacter.Attack);
-                    systemCombat.InvokeAttack(CurrentInteractable);
+                    if(CurrentInteractable.damageable.endurance > 0)
+                    {
+                        SetState(StateCharacter.Attack);
+                        systemCombat.InvokeAttack(CurrentInteractable);
+                    }
+                    else
+                    {
+                        CurrentInteractable = null;
+                        SetState(StateCharacter.Idle);
+                    }
                     // Mirar hacia el interactuable
                     // Evaluar el tipo de interactuable. 
 
@@ -123,15 +133,21 @@ public class Character : MonoBehaviour
                     SetState(StateCharacter.Idle); // detengase
                 }
             }
+            else
+            {
+                SetState(StateCharacter.Move); // detengase
+            }
         }
     }
     private void InvokeIdle()
     {
         particleMove.Stop();
+        animator.SetBool(HashRun, false);
     }
     private void InvokeMove()
     {
         particleMove.Play();
+        animator.SetBool(HashRun, true);
     }
     private void InvokeAttack()
     {

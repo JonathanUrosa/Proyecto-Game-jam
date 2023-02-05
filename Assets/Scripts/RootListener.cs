@@ -46,13 +46,11 @@ public class RootListener : MonoBehaviour
     }
     private void CloseBar(Vector3 v3)
     {
-        Debug.Log("cerrado el canvas");
         rootSlider.SetActive(false);
     }
 
     private void OpenBar()
     {
-        Debug.Log("abierto el canvas");
         rootSlider.SetActive(true);
     }
 

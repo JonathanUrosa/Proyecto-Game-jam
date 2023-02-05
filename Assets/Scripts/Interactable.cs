@@ -6,19 +6,20 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] ChannelNavmeshSO channelNavmeshSO;
     [SerializeField] Transform pointTarget;// punto de referencia que tendra los character para poder interactuar con este objeto
-
+    [HideInInspector]public Damageable damageable; 
     [SerializeField] UnityEvent OnEventInit = new UnityEvent(); // este evento va a contener el conjunto de acciones que deberan suceder inicio
     [SerializeField] UnityEvent onEventSelect = new UnityEvent(); // este evento va a contener el conjunto de acciones que deberan suceder al ser seleccionado
     [SerializeField] UnityEvent onEventDeselect = new UnityEvent();// este evento va a contener el conjunto de acciones que deberan suceder al ser deseleccionado
     [SerializeField] UnityEvent onEventInteractable = new UnityEvent();// este evento va a contener el conjunto de acciones que deberan suceder al character interactual con el
 
-
     public UnityEvent OnEventDeselect { get => onEventDeselect; set => onEventDeselect = value; }
     public UnityEvent OnEventSelect { get => onEventSelect; set => onEventSelect = value; }
     public UnityEvent OnEventInteractable { get => onEventInteractable; set => onEventInteractable = value; }
 
+
     private void OnEnable()
     {
+        damageable = GetComponent<Damageable>();
         OnEventInit?.Invoke();
         channelNavmeshSO.OnEventInteractable += EventInteractableListener;
     }
