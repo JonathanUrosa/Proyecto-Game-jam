@@ -22,9 +22,8 @@ public class FollowCharacter : MonoBehaviour
     {
         if (followTarget)
         {
-            if(transform != null)
+            if(target != null)
             {
-
                 transform.position = target.position + offset;
             }
             else
