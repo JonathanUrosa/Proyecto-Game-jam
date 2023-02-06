@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18351331, g: 0.22906777, b: 0.30571055, a: 1}
+  m_IndirectSpecularColor: {r: 0.18351346, g: 0.229068, b: 0.3057111, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -21360,6 +21360,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1745195573}
+  - component: {fileID: 1745195574}
   m_Layer: 0
   m_Name: Timeline
   m_TagString: Untagged
@@ -21384,6 +21385,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1745195574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745195572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb2e62fdbacf234fb01db7c08815784, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playableDirector: {fileID: 2132300388}
 --- !u!4 &1748503705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4080937431051537812, guid: fa1a518b91a995a4cae488be17ef6082, type: 3}
