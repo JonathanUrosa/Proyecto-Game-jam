@@ -45,7 +45,7 @@ public class TreeSystem : MonoBehaviour
             if((root.endurance<root.totalEndurance)&&remainingTrees>0)
             {
                 yield return new WaitForSeconds(60/regenerationRate );
-                root.endurance = Math.Clamp(root.endurance+ remainingTrees, 0,root.totalEndurance);
+                root.endurance = Math.Clamp(root.endurance+ remainingTrees, 0,root.totalEndurance-1);
                 TreeHealthBar.UpdateSlider();
             }
             yield return new WaitForEndOfFrame();
